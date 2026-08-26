@@ -1,0 +1,231 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------
+   DR PROTESTO — tokens de design
+   Paleta: navy profundo + azul-aço + azul-gelo. Cor de status é usada
+   com parcimônia, apenas para comunicar estado de título/acordo/processo.
+------------------------------------------------------------------- */
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
+
+  --color-navy-950: #06121a;
+  --color-navy-900: #0a1c26;
+  --color-navy-800: #102b39;
+  --color-navy-700: #17394b;
+  --color-navy-600: #1f4a61;
+  --color-steel-700: #245273;
+  --color-steel-600: #2e6285;
+  --color-steel-500: #3c7aa3;
+  --color-steel-400: #5f9cc2;
+  --color-steel-300: #8fbcd8;
+  --color-ice-200: #cfe2f1;
+  --color-ice-100: #e3eff9;
+  --color-ice-50: #f1f7fc;
+
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-fg-inverse: var(--fg-inverse);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-fg: var(--accent-fg);
+
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-neutral-soft: var(--neutral-soft);
+
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+
+  --shadow-card: 0 1px 2px rgba(9, 30, 44, 0.04), 0 1px 3px rgba(9, 30, 44, 0.06);
+  --shadow-pop: 0 12px 32px -8px rgba(9, 30, 44, 0.18), 0 2px 8px rgba(9, 30, 44, 0.08);
+  --shadow-lift: 0 24px 60px -20px rgba(6, 18, 26, 0.35);
+}
+
+:root {
+  --bg: #f3f7fa;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #eef4f9;
+  --surface-3: #e3ecf4;
+  --fg: #0a1c26;
+  --fg-muted: #556d7f;
+  --fg-subtle: #7f94a5;
+  --fg-inverse: #ffffff;
+  --line: #dde7ef;
+  --line-strong: #c5d5e3;
+  --accent: #2e6285;
+  --accent-hover: #245273;
+  --accent-soft: #e3eff9;
+  --accent-fg: #ffffff;
+
+  --ok: #14724f;
+  --ok-soft: #dff2e9;
+  --warn: #97650f;
+  --warn-soft: #fbeed5;
+  --danger: #a83521;
+  --danger-soft: #fbe4df;
+  --info: #2e6285;
+  --info-soft: #e3eff9;
+  --neutral-soft: #e8eef4;
+
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #06121a;
+  --bg-elevated: #0a1c26;
+  --surface: #0c2130;
+  --surface-2: #102b39;
+  --surface-3: #17394b;
+  --fg: #e6f0f7;
+  --fg-muted: #90a8ba;
+  --fg-subtle: #6c8497;
+  --fg-inverse: #06121a;
+  --line: #1a3546;
+  --line-strong: #244458;
+  --accent: #5f9cc2;
+  --accent-hover: #8fbcd8;
+  --accent-soft: #12303f;
+  --accent-fg: #06121a;
+
+  --ok: #56c79a;
+  --ok-soft: #0e2f24;
+  --warn: #e0ac52;
+  --warn-soft: #33260d;
+  --danger: #ea7d6b;
+  --danger-soft: #351813;
+  --info: #5f9cc2;
+  --info-soft: #12303f;
+  --neutral-soft: #17394b;
+
+  color-scheme: dark;
+}
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv05" 1, "ss03" 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+/* Números em tabelas e KPIs alinhados verticalmente */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.022em;
+}
+
+/* Scrollbars discretas, no tom da superfície */
+@supports (scrollbar-width: thin) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+}
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: 999px;
+}
+
+/* Foco visível e consistente em toda a aplicação */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes drp-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes drp-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes drp-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes drp-pulse-ring {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 40%, transparent); }
+  70% { box-shadow: 0 0 0 10px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+@keyframes drp-shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+
+.animate-fade-up { animation: drp-fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-fade { animation: drp-fade 0.5s ease both; }
+.animate-marquee { animation: drp-marquee 42s linear infinite; }
+
+.skeleton {
+  background: linear-gradient(90deg, var(--surface-2) 25%, var(--surface-3) 50%, var(--surface-2) 75%);
+  background-size: 200% 100%;
+  animation: drp-shimmer 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Grid de fundo usado em seções da landing page */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--line) 70%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--line) 70%, transparent) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
