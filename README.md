@@ -40,15 +40,15 @@ npx serve out
 O projeto já está configurado para export estático (`output: "export"` em
 `next.config.ts`) e acompanha o workflow `.github/workflows/deploy.yml`.
 
-Para publicar, basta fazer push para `main` — ou rodar o workflow manualmente
-em **Actions → Deploy to GitHub Pages → Run workflow**.
+**Passo obrigatório uma única vez:** em **Settings → Pages**, defina
+**Source: GitHub Actions**. Sem isso o workflow falha no passo
+`configure-pages` com `Get Pages site failed` — o `GITHUB_TOKEN` padrão não tem
+permissão para criar o site sozinho.
+
+Feito isso, cada push para `main` publica automaticamente. Também dá para rodar
+sob demanda em **Actions → Deploy to GitHub Pages → Run workflow**.
 
 O workflow instala as dependências, roda o typecheck, gera o export e publica.
-Na primeira execução ele também habilita o GitHub Pages no repositório
-(`enablement: true` no `configure-pages`), então não é preciso configurar nada
-em Settings. Se a organização bloquear essa habilitação automática, ligue o
-Pages manualmente em **Settings → Pages → Source: GitHub Actions** e rode o
-workflow de novo.
 O `basePath` é resolvido automaticamente: em Pages de projeto o site vive em
 `/<nome-do-repo>`, e em Pages de usuário (`<usuario>.github.io`) fica na raiz.
 

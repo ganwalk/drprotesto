@@ -155,9 +155,9 @@ export default function EntrarPage() {
               { v: "11 dias", l: "até o acordo" },
               { v: "4", l: "empresas na mesma conta" },
             ].map((i) => (
-              <div key={i.l} className="bg-navy-950/50 px-4 py-4">
+              <div key={i.l} className="min-w-0 bg-navy-950/50 px-4 py-4">
                 <p className="tnum font-display text-[19px] font-semibold text-white">{i.v}</p>
-                <p className="mt-1 text-[11.5px] leading-snug text-white/50">{i.l}</p>
+                <p className="mt-1 text-[11.5px] leading-snug text-balance text-white/50">{i.l}</p>
               </div>
             ))}
           </div>

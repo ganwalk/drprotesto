@@ -40,11 +40,10 @@ jobs:
       - name: Disable Jekyll processing
         run: touch out/.nojekyll
 
-      # enablement liga o GitHub Pages no repositório na primeira execução,
-      # dispensando a configuração manual em Settings → Pages.
+      # Requer o Pages já habilitado em Settings → Pages → Source: GitHub Actions.
+      # A habilitação automática (enablement: true) depende de uma permissão que
+      # o GITHUB_TOKEN padrão não tem neste repositório.
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:

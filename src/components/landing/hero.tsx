@@ -111,7 +111,7 @@ export function Hero() {
           style={{ animationDelay: "360ms" }}
         >
           {NUMEROS.map((n) => (
-            <div key={n.label} className="bg-navy-950/45 px-5 py-6">
+            <div key={n.label} className="min-w-0 bg-navy-950/45 px-5 py-6">
               <p className="tnum font-display text-[26px] leading-none font-semibold text-white">
                 {n.valor}
               </p>
