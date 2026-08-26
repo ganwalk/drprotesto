@@ -217,6 +217,17 @@ export const FASE_LABELS: Record<FaseRegua, string> = {
   JURIDICO: "Jurídico",
 };
 
+/** Rótulos curtos para eixos de gráfico e chips, onde não cabe o nome inteiro. */
+export const FASE_CURTA: Record<FaseRegua, string> = {
+  EMISSAO: "Emissão",
+  ANTES_VENCIMENTO: "D−3",
+  DIA_VENCIMENTO: "D0",
+  DEPOIS_VENCIMENTO: "D+5",
+  PRE_PROTESTO: "Pré-prot.",
+  PROTESTADO: "Protest.",
+  JURIDICO: "Jurídico",
+};
+
 export type Canal = "EMAIL" | "WHATSAPP" | "SMS";
 
 export interface PassoRegua {

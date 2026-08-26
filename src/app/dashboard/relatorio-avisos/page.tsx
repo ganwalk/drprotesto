@@ -11,7 +11,7 @@ import { useApp } from "@/store/app-store";
 import { useAvisosResumo, useEscopo, useIndices } from "@/store/selectors";
 import { AVISO_STATUS, CANAL_LABELS } from "@/lib/status";
 import { date, num, pct } from "@/lib/format";
-import { FASE_LABELS, FASES_REGUA, type Aviso, type AvisoStatus, type Canal, type FaseRegua } from "@/lib/domain";
+import { FASE_CURTA, FASE_LABELS, FASES_REGUA, type Aviso, type AvisoStatus, type Canal, type FaseRegua } from "@/lib/domain";
 
 export default function RelatorioAvisosPage() {
   const { db } = useApp();
@@ -48,7 +48,7 @@ export default function RelatorioAvisosPage() {
   const porFase = useMemo(
     () =>
       FASES_REGUA.map((f) => ({
-        rotulo: FASE_LABELS[f].split(" ")[0],
+        rotulo: FASE_CURTA[f],
         enviados: avisos.filter((a) => a.fase === f).length,
       })),
     [avisos],
