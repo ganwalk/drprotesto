@@ -1,132 +1,174 @@
 import Link from "next/link";
-import { ArrowDown, ArrowRight, QrCode, ShieldCheck, Stamp } from "@phosphor-icons/react/dist/ssr";
+import {
+  ArrowRight,
+  Buildings,
+  MagnifyingGlass,
+  ShieldCheck,
+  Stamp,
+} from "@phosphor-icons/react/dist/ssr";
 import { HeroCanvas } from "./hero-canvas";
 import { PreviewApp } from "./preview-app";
 
-const DESTAQUES = [
-  { icon: Stamp, texto: "Remessa oficial ao CENPROT" },
-  { icon: ShieldCheck, texto: "Acordos com assinatura digital" },
-  { icon: QrCode, texto: "Liquidação por PIX conciliada" },
+const TEASERS = [
+  {
+    icon: Stamp,
+    titulo: "Protesto extrajudicial",
+    texto: "Remessa e acompanhamento junto ao CENPROT, título a título.",
+    href: "#fluxo",
+  },
+  {
+    icon: ShieldCheck,
+    titulo: "Acordos digitais",
+    texto: "Negociação com desconto e assinatura eletrônica das partes.",
+    href: "#modulos",
+  },
+  {
+    icon: Buildings,
+    titulo: "Multiempresa",
+    texto: "Uma conta, várias operações — cada uma com sua própria régua.",
+    href: "#plataforma",
+  },
 ];
 
-const NUMEROS = [
-  { valor: "R$ 1,3 bi", label: "em títulos administrados" },
-  { valor: "38%", label: "de recuperação antes do cartório" },
-  { valor: "4.200", label: "protestos por mês via CENPROT" },
-  { valor: "11 dias", label: "de prazo médio até o acordo" },
-];
+const AVATARES = ["AC", "MB", "SR", "JP"];
 
 export function Hero() {
   return (
-    <section className="relative isolate overflow-hidden bg-navy-950">
-      <HeroCanvas className="absolute inset-0 h-full w-full" />
-
-      {/* Véu que garante contraste do texto sobre o shader */}
-      <div
-        className="absolute inset-0 bg-gradient-to-r from-navy-950/92 via-navy-950/55 to-navy-950/15"
-        aria-hidden
-      />
-      <div
-        className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg to-transparent"
-        aria-hidden
-      />
-
-      <div className="relative mx-auto max-w-[1240px] px-5 pt-32 pb-16 lg:px-8 lg:pt-40 lg:pb-24">
-        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-7">
-            <p className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-3.5 py-1.5 text-[11.5px] font-medium tracking-wide text-white/85 backdrop-blur-sm">
-              <span className="size-1.5 rounded-full bg-steel-300" />
-              Protesto extrajudicial nos termos da Lei 9.492/97
-            </p>
-
-            <h1
-              className="font-display animate-fade-up mt-6 text-[clamp(2.4rem,6.4vw,4.35rem)] leading-[1.03] font-semibold text-white"
-              style={{ animationDelay: "60ms" }}
-            >
-              Do primeiro aviso
-              <br />
-              ao protesto em cartório.
-            </h1>
-
-            <p
-              className="animate-fade-up mt-6 max-w-xl text-[16.5px] leading-relaxed text-white/70"
-              style={{ animationDelay: "120ms" }}
-            >
-              DR PROTESTO reúne régua de cobrança automatizada, remessa oficial ao CENPROT,
-              negociação de acordos com assinatura digital e liquidação por PIX — em uma única
-              plataforma multiempresa, com trilha de auditoria em cada etapa.
-            </p>
-
+    <section className="bg-bg px-5 pt-28 pb-16 lg:px-8 lg:pt-36 lg:pb-20">
+      <div className="mx-auto max-w-[1240px]">
+        {/* Grid principal: cartão escuro do produto + coluna de screenshot e estatística */}
+        <div className="grid gap-4 lg:grid-cols-12 lg:items-stretch">
+          {/* Cartão escuro — shader WebGL com elementos flutuantes em vidro */}
+          <div className="animate-fade-up relative isolate overflow-hidden rounded-[28px] bg-navy-950 shadow-[0_30px_70px_-30px_rgba(6,18,26,0.45)] lg:col-span-7">
+            <HeroCanvas className="absolute inset-0 h-full w-full" />
             <div
-              className="animate-fade-up mt-8 flex flex-wrap items-center gap-3"
-              style={{ animationDelay: "180ms" }}
-            >
+              className="absolute inset-0 bg-gradient-to-t from-navy-950/88 via-navy-950/20 to-navy-950/45"
+              aria-hidden
+            />
+
+            <div className="relative flex min-h-[560px] flex-col justify-between p-6 sm:p-8 lg:p-10">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-3.5 py-1.5 text-[11.5px] font-medium tracking-wide text-white/85 backdrop-blur-md">
+                  <span className="size-1.5 rounded-full bg-steel-300" />
+                  Protesto nos termos da Lei 9.492/97
+                </span>
+
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 py-1.5 pr-3.5 pl-1.5 backdrop-blur-md">
+                  <span className="flex -space-x-2">
+                    {AVATARES.map((sigla) => (
+                      <span
+                        key={sigla}
+                        className="grid size-6 place-items-center rounded-full border-2 border-navy-950 bg-steel-500 text-[9px] font-semibold text-white"
+                      >
+                        {sigla}
+                      </span>
+                    ))}
+                  </span>
+                  <span className="text-[11.5px] font-medium whitespace-nowrap text-white/85">
+                    148 devedores · 4 empresas
+                  </span>
+                </span>
+              </div>
+
+              <div className="animate-fade-up" style={{ animationDelay: "80ms" }}>
+                <h1 className="font-display max-w-lg text-[clamp(2.1rem,4.6vw,3.35rem)] font-bold leading-[1.03] text-white">
+                  Do primeiro aviso ao protesto em cartório.
+                </h1>
+                <p className="mt-4 max-w-sm text-[14.5px] leading-relaxed text-white/70">
+                  Régua de cobrança automatizada, remessa oficial ao CENPROT, acordos com
+                  assinatura digital e liquidação por PIX — numa só plataforma.
+                </p>
+
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <Link
+                    href="/dashboard"
+                    className="inline-flex h-11 items-center gap-2.5 rounded-full bg-white px-5 text-[14px] font-semibold text-navy-900 transition-colors hover:bg-ice-100"
+                  >
+                    Explorar a plataforma
+                    <ArrowRight size={15} weight="bold" />
+                  </Link>
+                  <Link
+                    href="#fluxo"
+                    className="inline-flex h-11 items-center gap-2.5 rounded-full border border-white/25 px-5 text-[14px] font-medium text-white transition-colors hover:bg-white/10"
+                  >
+                    Entender o fluxo
+                  </Link>
+                </div>
+              </div>
+
+              {/* Barra flutuante — evoca a busca global real da plataforma */}
               <Link
-                href="/dashboard"
-                className="inline-flex h-12 items-center gap-2.5 rounded-lg bg-white px-6 text-[15px] font-semibold text-navy-900 transition-colors hover:bg-ice-100"
+                href="/dashboard/carteira-devedores"
+                className="group mt-8 flex items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-4 py-3 backdrop-blur-md transition-colors hover:bg-white/15"
               >
-                Explorar a plataforma
-                <ArrowRight size={16} weight="bold" />
-              </Link>
-              <Link
-                href="#fluxo"
-                className="inline-flex h-12 items-center gap-2.5 rounded-lg border border-white/25 px-6 text-[15px] font-medium text-white transition-colors hover:bg-white/10"
-              >
-                Entender o fluxo
+                <MagnifyingGlass size={16} className="shrink-0 text-white/60" />
+                <span className="flex-1 truncate text-[13px] text-white/55">
+                  Buscar devedor, título, número do processo…
+                </span>
+                <span className="grid size-8 shrink-0 place-items-center rounded-full bg-white text-navy-900 transition-transform group-hover:translate-x-0.5">
+                  <ArrowRight size={14} weight="bold" />
+                </span>
               </Link>
             </div>
-
-            <ul
-              className="animate-fade-up mt-10 flex flex-wrap gap-x-7 gap-y-3"
-              style={{ animationDelay: "240ms" }}
-            >
-              {DESTAQUES.map(({ icon: Icone, texto }) => (
-                <li key={texto} className="flex items-center gap-2 text-[13px] text-white/65">
-                  <Icone size={16} weight="duotone" className="text-steel-300" />
-                  {texto}
-                </li>
-              ))}
-            </ul>
           </div>
 
-          <div
-            className="animate-fade-up lg:col-span-5"
-            style={{ animationDelay: "300ms" }}
-          >
-            <div className="relative">
-              <div
-                className="absolute -inset-6 rounded-3xl bg-steel-400/12 blur-2xl"
-                aria-hidden
-              />
-              <div className="relative lg:rotate-[0.7deg] lg:transition-transform lg:duration-500 lg:hover:rotate-0">
-                <PreviewApp />
+          {/* Coluna direita — screenshot do produto + estatísticas */}
+          <div className="flex flex-col gap-4 lg:col-span-5">
+            <div
+              className="animate-fade-up flex-1"
+              style={{ animationDelay: "120ms" }}
+            >
+              <PreviewApp />
+            </div>
+
+            <div
+              className="animate-fade-up grid grid-cols-2 gap-4"
+              style={{ animationDelay: "180ms" }}
+            >
+              <div className="rounded-[28px] border border-white/10 bg-navy-900 p-5">
+                <p className="tnum font-display text-[30px] leading-none font-bold text-white">
+                  38%
+                </p>
+                <p className="mt-2 text-[12px] leading-snug text-white/60">
+                  recuperado antes do cartório
+                </p>
+              </div>
+              <div className="rounded-[28px] border border-line bg-surface p-5">
+                <p className="tnum font-display text-[30px] leading-none font-bold text-fg">
+                  11 dias
+                </p>
+                <p className="mt-2 text-[12px] leading-snug text-fg-muted">
+                  prazo médio até o acordo
+                </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Faixa de números sobre o shader */}
-        <div
-          className="animate-fade-up mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/12 bg-white/10 backdrop-blur-md lg:mt-24 lg:grid-cols-4"
-          style={{ animationDelay: "360ms" }}
-        >
-          {NUMEROS.map((n) => (
-            <div key={n.label} className="min-w-0 bg-navy-950/45 px-5 py-6">
-              <p className="tnum font-display text-[26px] leading-none font-semibold text-white">
-                {n.valor}
-              </p>
-              <p className="mt-2 text-[12.5px] leading-snug text-white/55">{n.label}</p>
-            </div>
+        {/* Segunda fileira — teasers de módulo, mesmo raio e espírito bento */}
+        <div className="mt-4 grid gap-4 sm:grid-cols-3">
+          {TEASERS.map(({ icon: Icone, titulo, texto, href }, i) => (
+            <Link
+              key={titulo}
+              href={href}
+              className="animate-fade-up group rounded-[28px] border border-line bg-surface p-6 transition-colors hover:border-accent hover:bg-accent-soft/40"
+              style={{ animationDelay: `${220 + i * 60}ms` }}
+            >
+              <div className="flex items-start justify-between">
+                <span className="grid size-10 place-items-center rounded-xl bg-accent-soft text-accent transition-colors group-hover:bg-accent group-hover:text-accent-fg">
+                  <Icone size={19} weight="duotone" />
+                </span>
+                <ArrowRight
+                  size={14}
+                  weight="bold"
+                  className="mt-1 -translate-x-1 text-fg-subtle opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100"
+                />
+              </div>
+              <h3 className="font-display mt-4 text-[15px] font-semibold text-fg">{titulo}</h3>
+              <p className="mt-2 text-[13.5px] leading-relaxed text-fg-muted">{texto}</p>
+            </Link>
           ))}
         </div>
-
-        <a
-          href="#plataforma"
-          className="mt-12 inline-flex items-center gap-2 text-[12px] tracking-wider text-white/45 uppercase transition-colors hover:text-white/80"
-        >
-          <ArrowDown size={13} weight="bold" />
-          Continuar
-        </a>
       </div>
     </section>
   );

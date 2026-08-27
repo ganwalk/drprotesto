@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowUpRight, List, Moon, Sun, X } from "@phosphor-icons/react";
-import { Logo } from "@/components/brand/logo";
+import { Logo, LogoMark } from "@/components/brand/logo";
 import { Button } from "@/components/ui/primitives";
 import { useApp } from "@/store/app-store";
 import { cn } from "@/lib/cn";
@@ -17,12 +17,12 @@ const LINKS = [
 ];
 
 export function LandingNav() {
-  const [solido, setSolido] = useState(false);
+  const [rolado, setRolado] = useState(false);
   const [menuAberto, setMenuAberto] = useState(false);
   const { tema, alternarTema } = useApp();
 
   useEffect(() => {
-    const onScroll = () => setSolido(window.scrollY > 24);
+    const onScroll = () => setRolado(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -31,15 +31,16 @@ export function LandingNav() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300",
-        solido
-          ? "border-b border-line bg-bg/85 backdrop-blur-xl"
+        "fixed inset-x-0 top-0 z-50 bg-bg/85 backdrop-blur-xl transition-[border-color,box-shadow] duration-300",
+        rolado
+          ? "border-b border-line shadow-[0_1px_0_rgba(9,30,44,0.03)]"
           : "border-b border-transparent",
       )}
     >
       <div className="mx-auto flex h-16 max-w-[1240px] items-center justify-between gap-6 px-5 lg:px-8">
-        <Link href="/" aria-label="DR PROTESTO — início">
-          <Logo size={30} variante={solido ? "auto" : "claro"} />
+        <Link href="/" aria-label="DR PROTESTO — início" className="shrink-0">
+          <LogoMark size={30} className="sm:hidden" />
+          <Logo size={30} className="hidden sm:inline-flex" />
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
@@ -47,12 +48,7 @@ export function LandingNav() {
             <a
               key={l.href}
               href={l.href}
-              className={cn(
-                "rounded-lg px-3 py-2 text-[13.5px] font-medium transition-colors",
-                solido
-                  ? "text-fg-muted hover:bg-surface-2 hover:text-fg"
-                  : "text-white/70 hover:bg-white/10 hover:text-white",
-              )}
+              className="rounded-lg px-3 py-2 text-[13.5px] font-medium text-fg-muted transition-colors hover:bg-surface-2 hover:text-fg"
             >
               {l.label}
             </a>
@@ -63,34 +59,20 @@ export function LandingNav() {
           <button
             onClick={alternarTema}
             aria-label="Alternar tema"
-            className={cn(
-              "hidden size-9 place-items-center rounded-lg transition-colors sm:grid",
-              solido
-                ? "text-fg-muted hover:bg-surface-2 hover:text-fg"
-                : "text-white/70 hover:bg-white/10 hover:text-white",
-            )}
+            className="hidden size-9 place-items-center rounded-lg text-fg-muted transition-colors hover:bg-surface-2 hover:text-fg sm:grid"
           >
             {tema === "dark" ? <Sun size={17} /> : <Moon size={17} />}
           </button>
 
           <Link
             href="/entrar"
-            className={cn(
-              "hidden rounded-lg px-3 py-2 text-[13.5px] font-medium transition-colors sm:block",
-              solido
-                ? "text-fg hover:bg-surface-2"
-                : "text-white hover:bg-white/10",
-            )}
+            className="hidden rounded-lg px-3 py-2 text-[13.5px] font-medium text-fg transition-colors hover:bg-surface-2 sm:block"
           >
             Entrar
           </Link>
 
           <Link href="/dashboard">
-            <Button
-              size="sm"
-              variant={solido ? "primary" : "dark"}
-              className={cn(!solido && "bg-white text-navy-900 hover:bg-ice-100")}
-            >
+            <Button size="sm" variant="primary">
               Ver a plataforma
               <ArrowUpRight size={14} weight="bold" />
             </Button>
@@ -99,10 +81,7 @@ export function LandingNav() {
           <button
             onClick={() => setMenuAberto((v) => !v)}
             aria-label="Menu"
-            className={cn(
-              "grid size-9 place-items-center rounded-lg lg:hidden",
-              solido ? "text-fg" : "text-white",
-            )}
+            className="grid size-9 place-items-center rounded-lg text-fg lg:hidden"
           >
             {menuAberto ? <X size={18} /> : <List size={18} />}
           </button>
