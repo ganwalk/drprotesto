@@ -136,10 +136,10 @@ export const TONE_CSS: Record<Tone, string> = {
  * o gráfico usa uma escala própria em que cada fatia é distinguível.
  */
 export const TITULO_COR: Record<TituloStatus, string> = {
-  NO_PRAZO: "#8397a5",
+  NO_PRAZO: "#8a8580",
   PRE_PROTESTO: "#d7a13a",
-  AGUARDANDO_REMESSA: "#5f9cc2",
-  EM_CARTORIO: "#2e6285",
+  AGUARDANDO_REMESSA: "#8fa39c",
+  EM_CARTORIO: "#6b3540",
   DEVOLVIDO: "#8d5fa8",
   PROTESTADO: "#b3402f",
   JURIDICO: "#c4703a",

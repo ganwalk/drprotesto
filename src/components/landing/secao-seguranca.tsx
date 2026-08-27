@@ -48,7 +48,7 @@ export function SecaoSeguranca() {
         className="pointer-events-none absolute inset-0 opacity-[0.14]"
         style={{
           backgroundImage:
-            "linear-gradient(to right, #8fbcd8 1px, transparent 1px), linear-gradient(to bottom, #8fbcd8 1px, transparent 1px)",
+            "linear-gradient(to right, #d6d3d1 1px, transparent 1px), linear-gradient(to bottom, #d6d3d1 1px, transparent 1px)",
           backgroundSize: "72px 72px",
           maskImage: "radial-gradient(ellipse 70% 60% at 50% 40%, black, transparent)",
         }}

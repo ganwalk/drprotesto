@@ -12,20 +12,20 @@ import { PreviewApp } from "./preview-app";
 const TEASERS = [
   {
     icon: Stamp,
-    titulo: "Protesto extrajudicial",
-    texto: "Remessa e acompanhamento junto ao CENPROT, título a título.",
+    titulo: "Protesto de títulos",
+    texto: "Remessa e acompanhamento junto ao CENPROT, do apontamento à baixa, título a título.",
     href: "#fluxo",
   },
   {
     icon: ShieldCheck,
-    titulo: "Acordos digitais",
-    texto: "Negociação com desconto e assinatura eletrônica das partes.",
+    titulo: "Cobrança judicial",
+    texto: "Execução direta de títulos protestados quando a via amigável se esgota.",
     href: "#modulos",
   },
   {
     icon: Buildings,
-    titulo: "Multiempresa",
-    texto: "Uma conta, várias operações — cada uma com sua própria régua.",
+    titulo: "Recuperação de créditos",
+    texto: "Régua automatizada, acordos com desconto e liquidação por PIX numa só rotina.",
     href: "#plataforma",
   },
 ];
@@ -72,11 +72,12 @@ export function Hero() {
 
               <div className="animate-fade-up" style={{ animationDelay: "80ms" }}>
                 <h1 className="font-display max-w-lg text-[clamp(2.1rem,4.6vw,3.35rem)] font-bold leading-[1.03] text-white">
-                  Do primeiro aviso ao protesto em cartório.
+                  Recupere créditos com eficiência e segurança jurídica.
                 </h1>
                 <p className="mt-4 max-w-sm text-[14.5px] leading-relaxed text-white/70">
-                  Régua de cobrança automatizada, remessa oficial ao CENPROT, acordos com
-                  assinatura digital e liquidação por PIX — numa só plataforma.
+                  Do aviso ao protesto em cartório, da negociação ao acordo assinado: uma
+                  plataforma que une agilidade e expertise jurídica, pensada para empresas,
+                  escritórios de advocacia e profissionais liberais em todo o Brasil.
                 </p>
 
                 <div className="mt-6 flex flex-wrap gap-3">

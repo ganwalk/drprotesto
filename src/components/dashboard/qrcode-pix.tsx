@@ -30,7 +30,7 @@ export function QrCodePix({
       width: tamanho,
       margin: 1,
       errorCorrectionLevel: "M",
-      color: { dark: "#0a1c26", light: "#ffffff" },
+      color: { dark: "#0c0a09", light: "#ffffff" },
     }).catch(() => setErro(true));
   }, [payload, tamanho]);
 

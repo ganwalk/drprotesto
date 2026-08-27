@@ -26,7 +26,7 @@ const CATEGORIAS = [
 ];
 
 const CORES_CATEGORIA = [
-  "#2e6285", "#5f9cc2", "#8fbcd8", "#d7a13a",
+  "#6b3540", "#8fa39c", "#8a8580", "#d7a13a",
   "#c4703a", "#b3402f", "#14724f", "#8d5fa8",
 ];
 

@@ -12,8 +12,8 @@ const LINKS = [
   { href: "#plataforma", label: "Plataforma" },
   { href: "#fluxo", label: "Como funciona" },
   { href: "#modulos", label: "Módulos" },
-  { href: "#integracoes", label: "Integrações" },
   { href: "#planos", label: "Planos" },
+  { href: "#depoimentos", label: "Depoimentos" },
 ];
 
 export function LandingNav() {

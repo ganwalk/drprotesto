@@ -6,8 +6,8 @@ import { useEffect, useRef, useState } from "react";
    Plano de gradiente em WebGL.
 
    Ruído fBm com domain warping desenha um campo contínuo em tons de
-   navy/aço; sobre ele, linhas de nível topográficas dão a leitura técnica
-   e sóbria que o contexto jurídico pede. O ponteiro desloca o campo com
+   grafite e pedra; sobre ele, linhas de nível topográficas dão a leitura
+   técnica e sóbria que o contexto jurídico pede. O ponteiro desloca o campo com
    amortecimento, então o movimento é sutil — nunca chamativo.
 
    Sem bibliotecas: um quad em tela cheia e um fragment shader.
@@ -53,13 +53,14 @@ float fbm(vec2 p) {
   return v;
 }
 
-// Rampa de cor da marca: do quase-preto azulado ao azul-gelo.
+// Rampa de cor da marca: do grafite quase-preto a um cinza-pedra claro,
+// com um leve calor bordô no ponto mais luminoso.
 vec3 ramp(float t) {
-  vec3 c0 = vec3(0.016, 0.055, 0.090);
-  vec3 c1 = vec3(0.043, 0.125, 0.172);
-  vec3 c2 = vec3(0.110, 0.290, 0.395);
-  vec3 c3 = vec3(0.235, 0.520, 0.680);
-  vec3 c4 = vec3(0.640, 0.820, 0.910);
+  vec3 c0 = vec3(0.043, 0.038, 0.035);
+  vec3 c1 = vec3(0.106, 0.096, 0.088);
+  vec3 c2 = vec3(0.235, 0.212, 0.198);
+  vec3 c3 = vec3(0.430, 0.375, 0.362);
+  vec3 c4 = vec3(0.700, 0.615, 0.605);
 
   vec3 col = mix(c0, c1, smoothstep(0.00, 0.34, t));
   col = mix(col, c2, smoothstep(0.30, 0.62, t));
@@ -93,11 +94,11 @@ void main() {
   // Linhas de nível — leitura topográfica, quase subliminar.
   float bandas = fract(campo * 11.0);
   float linha = smoothstep(0.0, 0.055, abs(bandas - 0.5));
-  col += (1.0 - linha) * 0.085 * vec3(0.70, 0.86, 1.0);
+  col += (1.0 - linha) * 0.085 * vec3(0.92, 0.87, 0.85);
 
   // Brilho especular acompanhando o ponteiro.
   float halo = 1.0 - smoothstep(0.0, 0.85, distance(uv, uMouse));
-  col += halo * 0.075 * vec3(0.55, 0.80, 0.96);
+  col += halo * 0.075 * vec3(0.80, 0.68, 0.68);
 
   // Vinheta que ancora o texto sobreposto.
   float vig = smoothstep(1.70, 0.20, length(p * vec2(0.62, 1.0)));
@@ -259,7 +260,7 @@ export function HeroCanvas({ className }: { className?: string }) {
         aria-hidden
         style={{
           background:
-            "radial-gradient(125% 95% at 80% 10%, #5f9cc2 0%, #2e6285 26%, #102b39 62%, #06121a 100%)",
+            "radial-gradient(125% 95% at 80% 10%, #6b5a5a 0%, #453a38 26%, #221e1c 62%, #0c0a09 100%)",
         }}
       />
     );

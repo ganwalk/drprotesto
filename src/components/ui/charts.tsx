@@ -123,7 +123,7 @@ export function GraficoAging({
 }) {
   const cores = [
     "var(--fg-subtle)",
-    "var(--steel-400, #5f9cc2)",
+    "var(--steel-400, #bab5b0)",
     "var(--accent)",
     "var(--warn)",
     "var(--danger)",

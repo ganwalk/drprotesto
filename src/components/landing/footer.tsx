@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Envelope, MapPin, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import { Logo } from "@/components/brand/logo";
 
 const COLUNAS = [
@@ -41,12 +42,35 @@ export function LandingFooter() {
           <div className="lg:col-span-4">
             <Logo size={34} />
             <p className="mt-5 max-w-xs text-[13.5px] leading-relaxed text-fg-muted">
-              Recuperação de crédito ponta a ponta: régua de cobrança, protesto extrajudicial,
-              acordos digitais e liquidação por PIX.
+              Especialistas em recuperação de crédito e protesto extrajudicial: régua de
+              cobrança, acordos digitais e liquidação por PIX, com segurança jurídica do início
+              ao fim.
             </p>
-            <div className="mt-6 space-y-1 text-[13px] text-fg-muted">
-              <p>contato@drprotesto.com.br</p>
-              <p>0800 000 0000</p>
+            <div className="mt-6 space-y-3 text-[13px] text-fg-muted">
+              <p className="flex items-start gap-2.5">
+                <MapPin size={16} className="mt-0.5 shrink-0 text-fg-subtle" />
+                <span>
+                  Avenida Goiás, 310 — Edifício Vila Boa, 8º andar, sala 803
+                  <br />
+                  Setor Central, Goiânia/GO · CEP 74010-010
+                </span>
+              </p>
+              <a
+                href="https://wa.me/5562983362468"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2.5 transition-colors hover:text-accent"
+              >
+                <WhatsappLogo size={16} className="shrink-0 text-fg-subtle" />
+                +55 62 98336-2468 · seg. a sex., 8h às 18h
+              </a>
+              <a
+                href="mailto:contato@drprotesto.com.br"
+                className="flex items-center gap-2.5 transition-colors hover:text-accent"
+              >
+                <Envelope size={16} className="shrink-0 text-fg-subtle" />
+                contato@drprotesto.com.br
+              </a>
             </div>
           </div>
 

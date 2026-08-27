@@ -4,27 +4,29 @@
 
 /* ------------------------------------------------------------------
    DR PROTESTO — tokens de design
-   Paleta: navy profundo + azul-aço + azul-gelo. Cor de status é usada
-   com parcimônia, apenas para comunicar estado de título/acordo/processo.
+   Paleta neutra (grafite e pedra), quase monocromática. Um único
+   acento — bordô — carrega a identidade de marca. Cor de status é
+   usada com parcimônia, apenas para comunicar estado de título,
+   acordo ou processo.
 ------------------------------------------------------------------- */
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-display), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
 
-  --color-navy-950: #06121a;
-  --color-navy-900: #0a1c26;
-  --color-navy-800: #102b39;
-  --color-navy-700: #17394b;
-  --color-navy-600: #1f4a61;
-  --color-steel-700: #245273;
-  --color-steel-600: #2e6285;
-  --color-steel-500: #3c7aa3;
-  --color-steel-400: #5f9cc2;
-  --color-steel-300: #8fbcd8;
-  --color-ice-200: #cfe2f1;
-  --color-ice-100: #e3eff9;
-  --color-ice-50: #f1f7fc;
+  --color-navy-950: #0c0a09;
+  --color-navy-900: #1c1917;
+  --color-navy-800: #292524;
+  --color-navy-700: #44403c;
+  --color-navy-600: #57534e;
+  --color-steel-700: #78716c;
+  --color-steel-600: #8b8580;
+  --color-steel-500: #a8a29e;
+  --color-steel-400: #bab5b0;
+  --color-steel-300: #d6d3d1;
+  --color-ice-200: #e7e5e4;
+  --color-ice-100: #f5f5f4;
+  --color-ice-50: #faf9f7;
 
   --color-bg: var(--bg);
   --color-bg-elevated: var(--bg-elevated);
@@ -59,26 +61,26 @@
   --radius-xl: 20px;
   --radius-2xl: 28px;
 
-  --shadow-card: 0 1px 2px rgba(9, 30, 44, 0.04), 0 1px 3px rgba(9, 30, 44, 0.06);
-  --shadow-pop: 0 12px 32px -8px rgba(9, 30, 44, 0.18), 0 2px 8px rgba(9, 30, 44, 0.08);
-  --shadow-lift: 0 24px 60px -20px rgba(6, 18, 26, 0.35);
+  --shadow-card: 0 1px 2px rgba(12, 10, 9, 0.04), 0 1px 3px rgba(12, 10, 9, 0.06);
+  --shadow-pop: 0 12px 32px -8px rgba(12, 10, 9, 0.18), 0 2px 8px rgba(12, 10, 9, 0.08);
+  --shadow-lift: 0 24px 60px -20px rgba(12, 10, 9, 0.35);
 }
 
 :root {
-  --bg: #f3f7fa;
+  --bg: #faf9f7;
   --bg-elevated: #ffffff;
   --surface: #ffffff;
-  --surface-2: #eef4f9;
-  --surface-3: #e3ecf4;
-  --fg: #0a1c26;
-  --fg-muted: #556d7f;
-  --fg-subtle: #7f94a5;
+  --surface-2: #f2f0ed;
+  --surface-3: #e8e5e1;
+  --fg: #1c1917;
+  --fg-muted: #6b6560;
+  --fg-subtle: #8f8a84;
   --fg-inverse: #ffffff;
-  --line: #dde7ef;
-  --line-strong: #c5d5e3;
-  --accent: #2e6285;
-  --accent-hover: #245273;
-  --accent-soft: #e3eff9;
+  --line: #e5e2de;
+  --line-strong: #d1cdc7;
+  --accent: #5a3038;
+  --accent-hover: #451f26;
+  --accent-soft: #f2e7e8;
   --accent-fg: #ffffff;
 
   --ok: #14724f;
@@ -87,29 +89,29 @@
   --warn-soft: #fbeed5;
   --danger: #a83521;
   --danger-soft: #fbe4df;
-  --info: #2e6285;
-  --info-soft: #e3eff9;
-  --neutral-soft: #e8eef4;
+  --info: #5a3038;
+  --info-soft: #f2e7e8;
+  --neutral-soft: #ece9e5;
 
   color-scheme: light;
 }
 
 .dark {
-  --bg: #06121a;
-  --bg-elevated: #0a1c26;
-  --surface: #0c2130;
-  --surface-2: #102b39;
-  --surface-3: #17394b;
-  --fg: #e6f0f7;
-  --fg-muted: #90a8ba;
-  --fg-subtle: #6c8497;
-  --fg-inverse: #06121a;
-  --line: #1a3546;
-  --line-strong: #244458;
-  --accent: #5f9cc2;
-  --accent-hover: #8fbcd8;
-  --accent-soft: #12303f;
-  --accent-fg: #06121a;
+  --bg: #0c0a09;
+  --bg-elevated: #1c1917;
+  --surface: #171512;
+  --surface-2: #211e1a;
+  --surface-3: #2d2a25;
+  --fg: #f3f1ee;
+  --fg-muted: #aaa49d;
+  --fg-subtle: #7d7871;
+  --fg-inverse: #0c0a09;
+  --line: #2c2925;
+  --line-strong: #3d3934;
+  --accent: #d3a3ab;
+  --accent-hover: #e2bcc2;
+  --accent-soft: #2b191d;
+  --accent-fg: #241014;
 
   --ok: #56c79a;
   --ok-soft: #0e2f24;
@@ -117,9 +119,9 @@
   --warn-soft: #33260d;
   --danger: #ea7d6b;
   --danger-soft: #351813;
-  --info: #5f9cc2;
-  --info-soft: #12303f;
-  --neutral-soft: #17394b;
+  --info: #d3a3ab;
+  --info-soft: #2b191d;
+  --neutral-soft: #241f1a;
 
   color-scheme: dark;
 }
