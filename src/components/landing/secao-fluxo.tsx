@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   Bank,
@@ -117,100 +117,184 @@ const ETAPAS = [
 
 export function SecaoFluxo() {
   const [ativa, setAtiva] = useState(0);
-  const etapa = ETAPAS[ativa];
-  const Icone = etapa.icon;
+  const cardsRef = useRef<Array<HTMLDivElement | null>>([]);
+
+  // Observa qual etapa está no centro da viewport durante o scroll natural
+  // da página — a seção "acende" sozinha, sem depender de clique.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visiveis = entries.filter((e) => e.isIntersecting);
+        if (visiveis.length === 0) return;
+        // Em scrolls rápidos mais de um cartão pode cruzar a faixa central
+        // no mesmo frame; fica o mais alto na tela (o próximo a ser lido).
+        const topo = visiveis.reduce((a, b) =>
+          a.boundingClientRect.top < b.boundingClientRect.top ? a : b,
+        );
+        const idx = Number(topo.target.getAttribute("data-idx"));
+        if (!Number.isNaN(idx)) setAtiva(idx);
+      },
+      // Desconta a altura da nav fixa (64px) do topo e inclina a faixa de
+      // gatilho para a região onde os olhos naturalmente pousam ao rolar.
+      { rootMargin: "-140px 0px -55% 0px", threshold: 0 },
+    );
+    cardsRef.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  const irPara = (i: number) => {
+    setAtiva(i);
+    const reduzido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    cardsRef.current[i]?.scrollIntoView({
+      behavior: reduzido ? "auto" : "smooth",
+      block: "center",
+    });
+  };
 
   return (
     <Secao id="fluxo" fundo="surface">
       <TituloSecao
         eyebrow="Como funciona"
         titulo="Sete etapas, um só registro do começo ao fim."
-        descricao="O mesmo título carrega todo o seu histórico — cada aviso enviado, cada mudança de status, cada assinatura. Nada se perde entre planilhas e sistemas."
+        descricao="O mesmo título carrega todo o seu histórico — cada aviso enviado, cada mudança de status, cada assinatura. Nada se perde entre planilhas e sistemas. Role para acompanhar."
       />
 
-      {/* Trilho de etapas */}
-      <div className="mt-12 overflow-x-auto pb-2">
-        <div className="flex min-w-max items-center gap-2">
+      <div className="mt-12 grid gap-6 lg:grid-cols-12 lg:items-start lg:gap-10">
+        {/* Trilho de progresso — fixo, acompanha o scroll da lista ao lado */}
+        <div className="hidden lg:sticky lg:top-24 lg:col-span-3 lg:block">
+          <ol className="relative space-y-1 border-l border-line pl-6">
+            {ETAPAS.map((e, i) => {
+              const ativo = i === ativa;
+              return (
+                <li key={e.id}>
+                  <button
+                    onClick={() => irPara(i)}
+                    aria-current={ativo}
+                    className="group relative block w-full py-3 text-left"
+                  >
+                    <span
+                      className={cn(
+                        "absolute top-1/2 -left-[27px] size-2.5 -translate-y-1/2 rounded-full border-2 transition-colors",
+                        ativo
+                          ? "border-accent bg-accent"
+                          : "border-line-strong bg-surface group-hover:border-fg-subtle",
+                      )}
+                    />
+                    <span
+                      className={cn(
+                        "font-mono text-[11px] tracking-widest transition-colors",
+                        ativo ? "text-accent" : "text-fg-subtle",
+                      )}
+                    >
+                      {e.numero}
+                    </span>
+                    <span
+                      className={cn(
+                        "block text-[13.5px] font-medium transition-colors",
+                        ativo ? "text-fg" : "text-fg-subtle group-hover:text-fg-muted",
+                      )}
+                    >
+                      {e.titulo}
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+
+        {/* Lista vertical de etapas — cada bloco "acende" ao cruzar o centro da tela */}
+        <div className="space-y-4 lg:col-span-9">
           {ETAPAS.map((e, i) => {
-            const EtapaIcone = e.icon;
+            const Icone = e.icon;
             const ativo = i === ativa;
             return (
-              <div key={e.id} className="flex items-center gap-2">
-                <button
-                  onClick={() => setAtiva(i)}
-                  aria-pressed={ativo}
+              <div
+                key={e.id}
+                ref={(el) => {
+                  cardsRef.current[i] = el;
+                }}
+                data-idx={i}
+                onClick={() => setAtiva(i)}
+                className={cn(
+                  "min-h-[280px] cursor-pointer rounded-2xl border p-7 transition-all duration-300 sm:p-9",
+                  ativo
+                    ? "border-accent/40 bg-navy-900 shadow-[var(--shadow-pop)]"
+                    : "border-line bg-bg opacity-70 hover:opacity-95",
+                )}
+              >
+                <div className="flex items-start gap-4">
+                  <span
+                    className={cn(
+                      "grid size-11 shrink-0 place-items-center rounded-xl transition-colors",
+                      ativo ? "bg-white/10 text-white" : "bg-surface-2 text-fg-muted",
+                    )}
+                  >
+                    <Icone size={21} weight={ativo ? "duotone" : "regular"} />
+                  </span>
+                  <div className="min-w-0">
+                    <span
+                      className={cn(
+                        "font-mono text-[11.5px] tracking-widest",
+                        ativo ? "text-steel-300" : "text-fg-subtle",
+                      )}
+                    >
+                      ETAPA {e.numero}
+                    </span>
+                    <h3
+                      className={cn(
+                        "font-display mt-1 text-[20px] leading-tight font-semibold",
+                        ativo ? "text-white" : "text-fg",
+                      )}
+                    >
+                      {e.titulo}
+                    </h3>
+                    <p
+                      className={cn(
+                        "mt-1.5 text-[13.5px] leading-relaxed",
+                        ativo ? "text-white/60" : "text-fg-muted",
+                      )}
+                    >
+                      {e.resumo}
+                    </p>
+                  </div>
+                </div>
+
+                <div
                   className={cn(
-                    "group flex items-center gap-2.5 rounded-xl border px-3.5 py-2.5 transition-all duration-200",
-                    ativo
-                      ? "border-accent bg-accent text-accent-fg shadow-[var(--shadow-card)]"
-                      : "border-line bg-bg text-fg-muted hover:border-line-strong hover:text-fg",
+                    "grid transition-[grid-template-rows] duration-300 ease-out",
+                    ativo ? "mt-6 grid-rows-[1fr]" : "grid-rows-[0fr]",
                   )}
                 >
-                  <EtapaIcone size={17} weight={ativo ? "fill" : "duotone"} />
-                  <span className="text-[13px] font-medium whitespace-nowrap">{e.titulo}</span>
-                </button>
-                {i < ETAPAS.length - 1 && (
-                  <ArrowRight
-                    size={13}
-                    weight="bold"
-                    className={cn(
-                      "shrink-0 transition-colors",
-                      i < ativa ? "text-accent" : "text-line-strong",
-                    )}
-                  />
-                )}
+                  <div className="overflow-hidden">
+                    <div className="border-t border-white/10 pt-6">
+                      <p className="text-[14.5px] leading-relaxed text-white/80">{e.detalhe}</p>
+                      <ul className="mt-5 space-y-3">
+                        {e.pontos.map((p) => (
+                          <li
+                            key={p}
+                            className="flex gap-3 text-[13px] leading-relaxed text-white/60"
+                          >
+                            <span className="mt-[7px] size-1.5 shrink-0 rounded-full bg-steel-300" />
+                            {p}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
             );
           })}
-        </div>
-      </div>
 
-      {/* Detalhe da etapa */}
-      <div className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-line bg-line lg:grid-cols-12">
-        <div className="bg-navy-900 p-8 lg:col-span-5 lg:p-10">
-          <span className="font-mono text-[12px] tracking-widest text-steel-300">
-            ETAPA {etapa.numero}
-          </span>
-          <span className="mt-6 grid size-12 place-items-center rounded-xl bg-white/10 text-white">
-            <Icone size={24} weight="duotone" />
-          </span>
-          <h3 className="font-display mt-5 text-[22px] leading-tight font-semibold text-white">
-            {etapa.titulo}
-          </h3>
-          <p className="mt-3 text-[14px] leading-relaxed text-white/60">{etapa.resumo}</p>
-        </div>
-
-        <div className="bg-surface p-8 lg:col-span-7 lg:p-10">
-          <p className="text-[15px] leading-relaxed text-fg">{etapa.detalhe}</p>
-          <ul className="mt-7 space-y-3.5">
-            {etapa.pontos.map((p) => (
-              <li key={p} className="flex gap-3 text-[13.5px] leading-relaxed text-fg-muted">
-                <span className="mt-[7px] size-1.5 shrink-0 rounded-full bg-accent" />
-                {p}
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-8 flex items-center gap-3 border-t border-line pt-6">
-            <button
-              onClick={() => setAtiva((a) => Math.max(0, a - 1))}
-              disabled={ativa === 0}
-              className="rounded-lg border border-line px-3.5 py-2 text-[13px] font-medium text-fg-muted transition-colors hover:bg-surface-2 hover:text-fg disabled:opacity-40"
-            >
-              Anterior
-            </button>
-            <button
-              onClick={() => setAtiva((a) => Math.min(ETAPAS.length - 1, a + 1))}
-              disabled={ativa === ETAPAS.length - 1}
-              className="inline-flex items-center gap-2 rounded-lg bg-accent px-3.5 py-2 text-[13px] font-medium text-accent-fg transition-colors hover:bg-accent-hover disabled:opacity-40"
-            >
-              Próxima etapa
-              <ArrowRight size={13} weight="bold" />
-            </button>
-            <span className="tnum ml-auto text-[12.5px] text-fg-subtle">
-              {ativa + 1} / {ETAPAS.length}
-            </span>
-          </div>
+          <button
+            onClick={() => irPara(Math.min(ativa + 1, ETAPAS.length - 1))}
+            disabled={ativa === ETAPAS.length - 1}
+            className="hidden items-center gap-2 text-[13px] font-medium text-accent transition-opacity hover:underline disabled:hidden lg:inline-flex"
+          >
+            Próxima etapa
+            <ArrowRight size={13} weight="bold" />
+          </button>
         </div>
       </div>
     </Secao>
